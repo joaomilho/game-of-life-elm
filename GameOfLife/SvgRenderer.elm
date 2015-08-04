@@ -14,7 +14,7 @@ svgRenderer cells =
 renderCell : Cell -> Html
 renderCell (cx, cy) =
   rect [ fill "#000"
-       , x (toString (cx * 2))
-       , y (toString (cy * 2))
-       , width "1.5"
-       , height "1.5"] []
+       , x (toString (cx * 20))
+       , y (toString (cy * 20))
+       , width "19"
+       , height "19"] []

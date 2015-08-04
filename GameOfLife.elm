@@ -1,25 +1,22 @@
 module GameOfLife where
 
 import GameOfLife.Logic exposing (next)
-import GameOfLife.Types exposing (Cell, Cells)
-import GameOfLife.Patterns exposing (gosperGun)
+import GameOfLife.Types exposing (Cells)
+import GameOfLife.Patterns exposing (gosperGun, flicker)
 import GameOfLife.SvgRenderer exposing (svgRenderer)
 
 import Html exposing (Html)
-import Signal exposing (Signal)
+import Signal exposing ((<~), foldp)
 import Time exposing (fps)
 
-initialCells : Cells
-initialCells = gosperGun
+model : Cells
+model = flicker
 
 view : Cells -> Html
 view = svgRenderer
 
-tick : a -> Cells -> Cells
-tick _ currentCells = next currentCells
-
-latestCells : Signal Cells
-latestCells = Signal.foldp tick initialCells (fps 60)
+update : a -> Cells -> Cells
+update _ cells = next cells
 
 main : Signal Html
-main = Signal.map view latestCells
+main = view <~ foldp update model (fps 2)

@@ -6,7 +6,7 @@ import GameOfLife.Patterns exposing (gosperGun, flicker)
 import GameOfLife.SvgRenderer exposing (svgRenderer)
 
 import Html exposing (Html)
-import Signal exposing ((<~), foldp)
+import Signal exposing (map, foldp)
 import Time exposing (fps)
 
 model : Cells
@@ -19,4 +19,4 @@ update : a -> Cells -> Cells
 update _ cells = next cells
 
 main : Signal Html
-main = view <~ foldp update model (fps 2)
+main = map view <| foldp update model (fps 2)
